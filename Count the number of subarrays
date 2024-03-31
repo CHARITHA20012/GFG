@@ -1,0 +1,24 @@
+//User function Template for Java
+class Solution 
+{ 
+    long countSubarray(int N,int A[],long L,long R) {
+        long subarraysR = subarraysCount(N, A, R);
+        long subarraysL = subarraysCount(N, A, L-1);
+        long res = subarraysR - subarraysL;
+        return res;
+    }
+    static long subarraysCount(int N,int A[],long num) {
+        int low = 0;
+        long subarrays = 0;
+        long sum = 0;
+        for(int high=0; high<N; high++) {
+            sum += A[high];
+            while(sum > num) {
+                sum -= A[low];
+                low++;
+            }
+            subarrays += high - low + 1;
+        }
+        return subarrays;
+    }
+} 
